@@ -23,24 +23,24 @@ export type Testimonial = {
 const DATA: Testimonial[] = [
   {
     quote:
-      "The overall appearance of the vehicle after cleaning is very good. The attitude and professionalism of the staff is good.",
-    name: "Rahul Sherewala",
+      "Exceptional attention to detail — my car looked like it just rolled off the showroom floor. The team was punctual and professional.",
+    name: "Rohit Kapoor",
     image: "/photos/user-rahul.jpg",
     rating: 5,
   },
   {
     quote:
-      "If you want quality service for car detailing, then Washify is the one where they offer high-quality services, without stressing their budget at the same time.",
-    name: "Geeta Kumari",
+      "Great value and flawless finish. They went above and beyond to treat minor paint blemishes — highly recommended.",
+    name: "Rohini Malik",
     image: "/photos/user-geeta.jpg",
     rating: 5,
   },
   {
     quote:
-      "Fast, reliable, and super convenient. Booking was easy and the results exceeded expectations.",
-    name: "Aman Verma",
+      "Smooth booking, fast turnaround, and the interior smelled brand new. Lovely service — will use Washify again.",
+    name: "Priya Nair",
     image: "/photos/user-aman.jpg",
-    rating: 4,
+    rating: 5,
   },
 ];
 
@@ -51,25 +51,26 @@ interface Props {
 
 function StarRating({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-1">
+    <div className="flex items-center gap-1">
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
-          className={`h-4 w-4 ${
-            star <= rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+          className={`h-4 w-4 transition-colors ${
+            star <= rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300 dark:text-gray-600"
           }`}
         />
       ))}
+      <span className="ml-2 text-xs font-medium text-gray-500 dark:text-gray-400">{rating}.0</span>
     </div>
   );
 }
 
 export default function TestimonialsCarousel({ items = DATA, className }: Props) {
   return (
-    <section className={"relative py-14 " + (className ?? "")}>      
+    <section className={"relative py-14 " + (className ?? "")}>
       <div className="container mx-auto px-4">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#E81E25]">Testimonial</p>
-        <h2 className="mb-8 text-3xl font-extrabold md:text-5xl">WHAT CLIENTS SAY</h2>
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#E81E25]">Reviews</p>
+        <h2 className="mb-8 text-3xl font-extrabold md:text-4xl">What our clients say</h2>
 
         <Carousel
           opts={{ align: "start", loop: true }}
@@ -80,34 +81,36 @@ export default function TestimonialsCarousel({ items = DATA, className }: Props)
         >
           <CarouselContent className="-ml-4">
             {items.map((t, idx) => (
-              <CarouselItem key={idx} className="pl-4 md:basis-1/2 lg:basis-1/2">
-                <Card className="relative overflow-visible border-0 bg-[#8CE63A] p-6 shadow-md md:p-8">
-                  {/* Watermark quotes */}
-                  <Quote className="pointer-events-none absolute -top-3 -left-2 h-28 w-28 opacity-10" />
-                  <Quote className="pointer-events-none absolute -bottom-4 -right-3 h-28 w-28 rotate-180 opacity-10" />
+              <CarouselItem key={idx} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                <Card className="relative overflow-visible border-0 bg-white/90 dark:bg-gray-900/80 p-6 shadow-lg rounded-xl md:p-8">
+                  {/* subtle decorative quotes */}
+                  <Quote className="pointer-events-none absolute -top-3 -left-3 h-20 w-20 opacity-6 text-gray-400 dark:text-white/10" />
+                  <Quote className="pointer-events-none absolute -bottom-6 -right-4 h-20 w-20 rotate-180 opacity-6 text-gray-400 dark:text-white/10" />
 
-                  <blockquote className="text-white/95 text-sm leading-relaxed md:text-base italic mb-4">
+                  <blockquote className="text-gray-800 dark:text-gray-100 text-sm leading-relaxed md:text-base mb-5">
                     {t.quote}
                   </blockquote>
 
-                  <div className="mt-auto">
-                    <div className="mb-4">
+                  <div className="mt-auto flex items-center justify-between">
+                    <div>
                       <StarRating rating={t.rating} />
                     </div>
-                    
+
                     <div className="flex items-center gap-3">
-                      <div className="relative ml-4 h-14 w-14">
-                        <Avatar className="h-14 w-14 ring-2 ring-white">
-                          <AvatarImage src={t.image} alt={t.name} />
-                          <AvatarFallback>{initials(t.name)}</AvatarFallback>
-                        </Avatar>
+                      <Avatar className="h-12 w-12 ring-1 ring-gray-200 dark:ring-gray-700">
+                        <AvatarImage src={t.image} alt={t.name} />
+                        <AvatarFallback>{initials(t.name)}</AvatarFallback>
+                      </Avatar>
+
+                      <div className="text-right">
+                        <div className="text-sm font-semibold text-gray-900 dark:text-gray-100"> {t.name}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">Verified client</div>
                       </div>
-                      <span className="ml-2 text-white text-sm font-semibold md:text-base">- {t.name}</span>
                     </div>
                   </div>
 
-                  {/* subtle drop shadow under card to mimic screenshot */}
-                  <div className="pointer-events-none absolute inset-x-6 -bottom-2 h-2 rounded-full bg-black/10 blur-[2px]" />
+                  {/* subtle shadow / grounding */}
+                  <div className="pointer-events-none absolute inset-x-6 -bottom-2 h-2 rounded-full bg-black/6 dark:bg-white/6 blur-[3px]" />
                 </Card>
               </CarouselItem>
             ))}

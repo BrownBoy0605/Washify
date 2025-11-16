@@ -9,7 +9,7 @@ export default function RubbingPolishing() {
     return (
         <div className="justify-center items-center min-h-screen dark">
             <Navbar />
-            <div className="pt-14">
+            <div>
 
             <PageHero
                 title="Rubbing & Polishing"

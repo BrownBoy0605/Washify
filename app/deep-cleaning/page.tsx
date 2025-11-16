@@ -9,7 +9,7 @@ export default function DeepCleaning() {
     return (
         <div className="justify-center items-center min-h-screen dark">
             <Navbar />
-            <div className="pt-14">
+            <div>
             <PageHero
                 title="Deep Cleaning"
                 subtitle="Premium interior & exterior detailing for a like-new finish."

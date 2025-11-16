@@ -10,7 +10,7 @@ export default function QuickShine() {
     return (
         <div className="justify-center items-center min-h-screen dark">
             <Navbar />
-            <div className="pt-14">
+            <div>
             <PageHero
                 title="Quick Shine"
                 bgSrc="/photos/horizontalBackground.png"

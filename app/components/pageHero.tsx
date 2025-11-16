@@ -59,7 +59,7 @@ export default function PageHero({
                 {breadcrumbs.map((bc, idx) => {
                   const isLast = idx === breadcrumbs.length - 1;
                   return (
-                    <li key={`${bc.label}-${idx}`} className="flex items-center gap-2">
+                    <li key={`${bc.label}-${idx}`} className="pt-15 flex items-center gap-2">
                       {idx === 0 && <Home className="h-4 w-4" />}
                       {bc.href && !isLast ? (
                         <Link href={bc.href} className="hover:text-white transition">

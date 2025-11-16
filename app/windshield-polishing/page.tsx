@@ -8,8 +8,8 @@ import ServicesGrid from "../components/Services";
 export default function WindShieldPolishing() {
     return (
         <div className="justify-center items-center min-h-screen dark">
-            <Navbar />
-            <div className="pt-14">
+            <Navbar /> 
+            <div>
 
             <PageHero
                 title="Windshield Polishing"
