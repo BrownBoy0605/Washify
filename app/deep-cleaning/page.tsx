@@ -17,7 +17,6 @@ export default function DeepCleaning() {
                 breadcrumbs={[{ label: "Home", href: "/" }, { label: "Deep Cleaning" }]}
                 ctas={[
                     { label: "Book Now", href: "/booking" },
-                    { label: "View Packages", href: "/deep-cleaning", variant: "secondary" },
                 ]}
                 align="center"
                 heightClassName="h-[60vh] min-h-[360px]"
