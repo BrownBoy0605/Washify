@@ -17,6 +17,7 @@ type Package = {
   price: string;
   icon: React.ReactNode;
   href?: string;
+  detailHref?: string; // minimal addition for detail page URL
 };
 
 const DEFAULT_PACKAGES: Package[] = [
@@ -27,7 +28,8 @@ const DEFAULT_PACKAGES: Package[] = [
     time: "Time · Around 1 hr",
     price: "₹349/-",
     icon: <Sparkles className="h-6 w-6" aria-hidden />,
-    href: "/book/quick-shine",
+    href: "/booking",
+    detailHref: "/quick-shine",
   },
   {
     id: "deep",
@@ -36,7 +38,8 @@ const DEFAULT_PACKAGES: Package[] = [
     time: "Time · Around 2–3 hrs",
     price: "₹799/-",
     icon: <Brush className="h-6 w-6" aria-hidden />,
-    href: "/book/deep-cleaning",
+    href: "/booking",
+    detailHref: "/deep-cleaning",
   },
   {
     id: "rubbing",
@@ -45,7 +48,8 @@ const DEFAULT_PACKAGES: Package[] = [
     time: "Time · Around 2–3 hrs",
     price: "₹1399/-",
     icon: <Car className="h-6 w-6" aria-hidden />,
-    href: "/book/rubbing-polishing",
+    href: "/booking",
+    detailHref: "/rubbing-polishing",
   },
   {
     id: "windshield",
@@ -54,7 +58,8 @@ const DEFAULT_PACKAGES: Package[] = [
     time: "Time · Around 2 hrs",
     price: "₹799/-",
     icon: <Wind className="h-6 w-6" aria-hidden />,
-    href: "/book/windshield-polish",
+    href: "/booking",
+    detailHref: "/windshield-polishing",
   },
 ];
 
@@ -63,13 +68,13 @@ interface PackagesSectionProps {
   sub?: string;
   ctaHref?: string;
   packages?: Package[];
-  backgroundImageUrl?: string; // optional tire-track bg
+  backgroundImageUrl?: string;
 }
 
 export default function PackagesSection({
   heading = "Packages for Every Ride",
   sub = "OUR PACKAGES",
-  ctaHref = "/book",
+  ctaHref = "/booking",
   packages = DEFAULT_PACKAGES,
   backgroundImageUrl,
 }: PackagesSectionProps) {
@@ -87,7 +92,7 @@ export default function PackagesSection({
             alt="Decorative tire track"
             fill
             priority
-            className="object-cover opacity-20  select-none"
+            className="object-cover opacity-20 select-none"
           />
         ) : null}
 
@@ -115,7 +120,6 @@ export default function PackagesSection({
         </div>
 
         {/* angled divider */}
-        
       </div>
 
       {/* Cards wrapper that overlaps the red banner (white panel look) */}
@@ -182,10 +186,26 @@ export default function PackagesSection({
                             <Button size="sm" className="font-semibold">
                               BOOK NOW
                             </Button>
-                            <span className="inline-flex items-center text-sm font-medium text-primary/90 group-hover:text-primary">
+
+                            {/* Minimal change: button that prevents outer Link from triggering
+                                and navigates to the detail page via window.location */}
+                            <button
+                              onClick={(e) => {
+                                // stop the outer Link (booking) from handling this click
+                                e.preventDefault();
+                                e.stopPropagation();
+                                const target = pkg.detailHref ?? ctaHref;
+                                // navigate
+                                if (typeof window !== "undefined") {
+                                  window.location.href = target;
+                                }
+                              }}
+                              className="inline-flex items-center text-sm font-medium text-primary/90 group-hover:text-primary"
+                              aria-label={`More about ${pkg.title}`}
+                            >
                               More
                               <ChevronRight className="ml-0.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                            </span>
+                            </button>
                           </div>
 
                           {/* Decorative underline */}

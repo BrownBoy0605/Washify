@@ -11,12 +11,13 @@ import {
 } from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Quote } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 
 export type Testimonial = {
   quote: string;
   name: string;
   image?: string;
+  rating: number;
 };
 
 const DATA: Testimonial[] = [
@@ -25,24 +26,42 @@ const DATA: Testimonial[] = [
       "The overall appearance of the vehicle after cleaning is very good. The attitude and professionalism of the staff is good.",
     name: "Rahul Sherewala",
     image: "/photos/user-rahul.jpg",
+    rating: 5,
   },
   {
     quote:
       "If you want quality service for car detailing, then Washify is the one where they offer high-quality services, without stressing their budget at the same time.",
     name: "Geeta Kumari",
     image: "/photos/user-geeta.jpg",
+    rating: 5,
   },
   {
     quote:
       "Fast, reliable, and super convenient. Booking was easy and the results exceeded expectations.",
     name: "Aman Verma",
     image: "/photos/user-aman.jpg",
+    rating: 4,
   },
 ];
 
 interface Props {
   items?: Testimonial[];
   className?: string;
+}
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="flex gap-1">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Star
+          key={star}
+          className={`h-4 w-4 ${
+            star <= rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+          }`}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default function TestimonialsCarousel({ items = DATA, className }: Props) {
@@ -67,18 +86,24 @@ export default function TestimonialsCarousel({ items = DATA, className }: Props)
                   <Quote className="pointer-events-none absolute -top-3 -left-2 h-28 w-28 opacity-10" />
                   <Quote className="pointer-events-none absolute -bottom-4 -right-3 h-28 w-28 rotate-180 opacity-10" />
 
-                  <blockquote className="text-white/95 text-sm leading-relaxed md:text-base italic">
+                  <blockquote className="text-white/95 text-sm leading-relaxed md:text-base italic mb-4">
                     {t.quote}
                   </blockquote>
 
-                  <div className="mt-6 flex items-center gap-3">
-                    <div className="relative  ml-4 h-14 w-14">
-                      <Avatar className="h-14 w-14 ring-2 ring-white">
-                        <AvatarImage src={t.image} alt={t.name} />
-                        <AvatarFallback>{initials(t.name)}</AvatarFallback>
-                      </Avatar>
+                  <div className="mt-auto">
+                    <div className="mb-4">
+                      <StarRating rating={t.rating} />
                     </div>
-                    <span className="ml-2 text-white text-sm font-semibold md:text-base">- {t.name}</span>
+                    
+                    <div className="flex items-center gap-3">
+                      <div className="relative ml-4 h-14 w-14">
+                        <Avatar className="h-14 w-14 ring-2 ring-white">
+                          <AvatarImage src={t.image} alt={t.name} />
+                          <AvatarFallback>{initials(t.name)}</AvatarFallback>
+                        </Avatar>
+                      </div>
+                      <span className="ml-2 text-white text-sm font-semibold md:text-base">- {t.name}</span>
+                    </div>
                   </div>
 
                   {/* subtle drop shadow under card to mimic screenshot */}

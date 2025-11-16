@@ -20,7 +20,7 @@ export default function Home() {
       />
       <PackagesSection
         backgroundImageUrl="/photos/horizontalBackground.png" // optional
-        ctaHref="/book"
+        ctaHref="/booking"
       />
       <WhyChooseUs
         imageSrc="/photos/carWasher.jpg"

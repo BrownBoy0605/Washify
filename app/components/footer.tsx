@@ -78,17 +78,17 @@ export default function FooterSection() {
             <h3 className="text-lg font-extrabold tracking-tight">OUR SOLUTIONS <span className="text-lime-400">//</span></h3>
             <ul className="mt-4 grid grid-cols-2 gap-y-2 text-white/90">
               <li>
-                <Link href="/book/deep-cleaning" className="hover:underline">Deep Cleaning</Link>
+                <Link href="/booking" className="hover:underline">Deep Cleaning</Link>
               </li>
               <li className="text-white/70">BOOKING</li>
               <li>
-                <Link href="/book/rubbing-polishing" className="hover:underline">Rubbing &amp; Polishing</Link>
+                <Link href="/booking" className="hover:underline">Rubbing &amp; Polishing</Link>
               </li>
               <li>
-                <Link href="/book/quick-shine" className="hover:underline">Quick Shine</Link>
+                <Link href="/booking" className="hover:underline">Quick Shine</Link>
               </li>
               <li>
-                <Link href="/book/windshield-polish" className="hover:underline">Windshield Polish</Link>
+                <Link href="/booking" className="hover:underline">Windshield Polish</Link>
               </li>
             </ul>
           </div>

@@ -9,6 +9,7 @@ export default function DeepCleaning() {
     return (
         <div className="justify-center items-center min-h-screen dark">
             <Navbar />
+            <div className="pt-14">
             <PageHero
                 title="Deep Cleaning"
                 subtitle="Premium interior & exterior detailing for a like-new finish."
@@ -39,6 +40,7 @@ export default function DeepCleaning() {
 
             <QuickShinePricing prices={[799, 999, 999, 1199, 1399]} />
             <FooterSection />
+            </div>
         </div>
     );
 }

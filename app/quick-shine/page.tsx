@@ -10,6 +10,7 @@ export default function QuickShine() {
     return (
         <div className="justify-center items-center min-h-screen dark">
             <Navbar />
+            <div className="pt-14">
             <PageHero
                 title="Quick Shine"
                 bgSrc="/photos/horizontalBackground.png"
@@ -30,6 +31,7 @@ export default function QuickShine() {
             />
             <QuickShinePricing prices={[349, 399, 399, 449, 449]} />
             <FooterSection />
+            </div>
         </div>
     );
 }

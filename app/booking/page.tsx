@@ -121,7 +121,7 @@ export default function BookingPage() {
   return (
     <main className="min-h-screen w-full bg-gradient-to-b from-background to-muted/30">
         <Navbar></Navbar>
-      <div className="mx-auto max-w-5xl px-3 md:px-6 mt-25">
+      <div className="mx-auto max-w-5xl px-3 md:px-6 pt-14">
         <div className="mb-6 flex items-center gap-3">
           <Badge variant="secondary" className="rounded-full px-3 py-1 text-sm">New</Badge>
           <h1 className="text-3xl font-semibold tracking-tight">Booking Form</h1>
