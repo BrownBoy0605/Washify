@@ -18,7 +18,7 @@ export default function RubbingPolishing() {
                     { label: "Home", href: "/" },
                     { label: "Rubbing & Polishing" },
                 ]}
-                ctas={[{ label: "Book Now", href: "/book/rubbing-polishing" }]}
+                ctas={[{ label: "Book Now", href: "/booking" }]}
                 align="center"
                 subtitle="Deep paint restoration with machine rubbing & premium wax polish."
                 heightClassName="h-[60vh] min-h-[360px]"

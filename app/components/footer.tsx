@@ -69,7 +69,7 @@ export default function FooterSection() {
             </Card>
 
             <Button variant="link" asChild className="mt-4 px-0 text-white/90 hover:text-white">
-              <Link href="/contact">Contact Us</Link>
+              <Link href="/booking">Contact Us</Link>
             </Button>
           </div>
 

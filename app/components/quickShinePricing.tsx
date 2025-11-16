@@ -15,11 +15,11 @@ type Tier = {
 };
 
 const BASE_TIERS: Tier[] = [
-  { name: "Hatchback",   img: "/cars/hatchback.jpg", popular: true,  href: "/book/hatchback" },
-  { name: "Sedan",       img: "/cars/sedan.jpg",                         href: "/book/sedan" },
-  { name: "Compact SUV", img: "/cars/compact-suv.jpg",                   href: "/book/compact-suv" },
-  { name: "5 Seater SUV",img: "/cars/suv-5-seater.jpg",                  href: "/book/5-seater-suv" },
-  { name: "7 Seater SUV",img: "/cars/suv-7-seater.jpg",                  href: "/book/7-seater-suv" },
+  { name: "Hatchback",   img: "/cars/hatchback.jpg", popular: true,  href: "/booking" },
+  { name: "Sedan",       img: "/cars/sedan.jpg",                         href: "/booking" },
+  { name: "Compact SUV", img: "/cars/compact-suv.jpg",                   href: "/booking" },
+  { name: "5 Seater SUV",img: "/cars/suv-5-seater.jpg",                  href: "/booking" },
+  { name: "7 Seater SUV",img: "/cars/suv-7-seater.jpg",                  href: "/booking" },
 ];
 
 function formatINR(n: number) {

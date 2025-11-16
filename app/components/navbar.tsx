@@ -67,7 +67,7 @@ export default function Navbar() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link href="/contact" className="hover:text-gray-300 text-sm font-medium">
+                <Link href="/booking" className="hover:text-gray-300 text-sm font-medium">
                   Contact Us
                 </Link>
               </NavigationMenuItem>
@@ -98,7 +98,7 @@ export default function Navbar() {
                 <Link href="/windshield-polishing">WINDSHIELD POLISHING</Link>
               </div>
 
-              <Link href="/contact">Contact Us</Link>
+              <Link href="/booking">Contact Us</Link>
 
               <Badge className="w-fit flex items-center gap-1 px-3 py-1 text-sm">
                 <MapPin size={14} /> Jaipur

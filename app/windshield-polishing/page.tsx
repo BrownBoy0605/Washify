@@ -18,7 +18,7 @@ export default function WindShieldPolishing() {
                     { label: "Home", href: "/" },
                     { label: "Windshield Polishing" },
                 ]}
-                ctas={[{ label: "Book Now", href: "/book/windshield-polishing" }]}
+                ctas={[{ label: "Book Now", href: "/booking" }]}
                 align="center"
                 subtitle="Restore clarity and safety with our expert windshield polishing service."
                 heightClassName="h-[60vh] min-h-[360px]"

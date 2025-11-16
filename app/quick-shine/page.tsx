@@ -15,7 +15,7 @@ export default function QuickShine() {
                 title="Quick Shine"
                 bgSrc="/photos/horizontalBackground.png"
                 breadcrumbs={[{ label: "Home", href: "/" }, { label: "Quick Shine" }]}
-                ctas={[{ label: "Book Now", href: "/book/quick-shine" }]}
+                ctas={[{ label: "Book Now", href: "/booking" }]}
                 align="center"
                 subtitle="Fast and professional exterior shine with premium finishing."
                 heightClassName="h-[60vh] min-h-[360px]"

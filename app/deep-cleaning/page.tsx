@@ -16,8 +16,8 @@ export default function DeepCleaning() {
                 bgSrc="/photos/horizontalBackground2.png"
                 breadcrumbs={[{ label: "Home", href: "/" }, { label: "Deep Cleaning" }]}
                 ctas={[
-                    { label: "Book Now", href: "/book/deep-cleaning" },
-                    { label: "View Packages", href: "/services/deep-cleaning", variant: "secondary" },
+                    { label: "Book Now", href: "/booking" },
+                    { label: "View Packages", href: "/deep-cleaning", variant: "secondary" },
                 ]}
                 align="center"
                 heightClassName="h-[60vh] min-h-[360px]"
