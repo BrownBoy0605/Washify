@@ -9,9 +9,9 @@ import FooterSection from "./components/footer";
 
 export default function Home() {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen dark">
+    <div className="flex flex-col justify-center items-center min-h-screen w-full max-w-full dark">
       <Navbar />
-       <Hero
+      <Hero
         city="Jaipur"
         slides={[
           { src: "/videos/car.mp4", alt: "Blue sports car" },

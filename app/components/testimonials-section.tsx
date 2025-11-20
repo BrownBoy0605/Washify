@@ -67,7 +67,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function TestimonialsCarousel({ items = DATA, className }: Props) {
   return (
-    <section className={"relative py-14 " + (className ?? "")}>
+    <section className={"relative py-14 max-w-full " + (className ?? "")}>
       <div className="container mx-auto px-4">
         <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#E81E25]">Reviews</p>
         <h2 className="mb-8 text-3xl font-extrabold md:text-4xl">What our clients say</h2>
