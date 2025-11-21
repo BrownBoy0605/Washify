@@ -110,7 +110,7 @@ export default function BookingPage() {
     setErrors([]);
   }
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!validate()) return;
 
@@ -127,9 +127,25 @@ export default function BookingPage() {
       waterPower,
     };
 
-    console.log("Booking submission:", payload);
-    alert("Thanks! Your booking details have been logged to the console.");
-    clearForm();
+    try {
+      const response = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(`✅ Booking confirmed! Your booking ID is: ${data.bookingId}`);
+        clearForm();
+      } else {
+        const error = await response.json();
+        alert(`❌ Error: ${error.error || "Failed to create booking"}`);
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("❌ Failed to submit booking. Please try again.");
+    }
   }
 
   return (
