@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../components/navbar";
 import FooterSection from "../components/footer";
@@ -65,6 +65,41 @@ export default function BookingPage() {
   const [waterPower, setWaterPower] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
 
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedData = localStorage.getItem("bookingFormData");
+    if (savedData) {
+      try {
+        const data = JSON.parse(savedData);
+        if (data.name) setName(data.name);
+        if (data.phone) setPhone(data.phone);
+        if (data.city) setCity(data.city);
+        if (data.address) setAddress(data.address);
+        if (data.packages && Array.isArray(data.packages)) {
+          setSelectedPackages(new Set(data.packages));
+        }
+        if (data.car) setCar(data.car);
+        if (data.waterPower) setWaterPower(data.waterPower);
+      } catch (error) {
+        console.error("Failed to load form data from localStorage:", error);
+      }
+    }
+  }, []);
+
+  // Save to localStorage whenever form data changes
+  useEffect(() => {
+    const dataToSave = {
+      name,
+      phone,
+      city,
+      address,
+      packages: Array.from(selectedPackages),
+      car,
+      waterPower,
+    };
+    localStorage.setItem("bookingFormData", JSON.stringify(dataToSave));
+  }, [name, phone, city, address, selectedPackages, car, waterPower]);
+
   const price = useMemo(() => {
     if (!car || selectedPackages.size === 0) return 0;
     let total = 0;
@@ -108,6 +143,7 @@ export default function BookingPage() {
     setAgree(false);
     setWaterPower(false);
     setErrors([]);
+    localStorage.removeItem("bookingFormData");
   }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -137,7 +173,10 @@ export default function BookingPage() {
       if (response.ok) {
         const data = await response.json();
         alert(`✅ Booking confirmed! Your booking ID is: ${data.bookingId}`);
-        clearForm();
+        // Reset only date and time slot, keep frequently used data in localStorage
+        setDate("");
+        setTimeSlot(null);
+        setAgree(false);
       } else {
         const error = await response.json();
         alert(`❌ Error: ${error.error || "Failed to create booking"}`);
