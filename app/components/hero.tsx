@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Phone, ChevronRight, MessageCircle } from "lucide-react";
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 type Slide = {
   src: string;
@@ -28,6 +29,7 @@ export default function Hero({
 }: HeroProps) {
   const [index, setIndex] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const router = useRouter();
 
   const current = slides[index];
 
@@ -85,8 +87,8 @@ export default function Hero({
 
             {/* CTA buttons */}
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button size="lg" className="gap-2">
-                View Packages <ChevronRight className="h-4 w-4" />
+              <Button size="lg" className="gap-2" onClick={() => router.push("/booking")}>
+                Book Now <ChevronRight className="h-4 w-4" />
               </Button>
               <Button size="lg" variant="secondary" className="gap-2">
                 <Phone className="h-4 w-4" />

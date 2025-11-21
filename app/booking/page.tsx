@@ -449,7 +449,7 @@ export default function BookingPage() {
                             <p><strong>3. Liability:</strong> We handle vehicles with care. Minor scratches/paint issues existing prior to service should be reported. We are not responsible for pre-existing damages.</p>
                             <p><strong>4. Cancellation:</strong> Cancel 12 hours before the slot to avoid a small cancellation fee.</p>
                             <p><strong>5. Privacy:</strong> Your contact details are used only for booking and service-related communication.</p>
-                            <p className="text-xs text-muted-foreground">This is a sample T&C. Replace with your legal terms before going live.</p>
+                            <p className="text-xs text-muted-foreground">Please read all T&C carefully.</p>
                           </div>
                           <DialogFooter>
                             <DialogClose asChild>

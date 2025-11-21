@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -20,22 +21,23 @@ import { VisuallyHidden } from "@/components/ui/visually-hidden";
 import { Menu, MapPin } from "lucide-react";
 
 export default function Navbar() {
+  const router = useRouter();
   return (
     <header className="w-full border-b border-gray-700 bg-gray-900/80 text-white backdrop-blur supports-[backdrop-filter]:bg-gray-900/60 fixed top-0 z-50">
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="font-bold text-xl text-white">
+        <button onClick={() => router.push("/")} className="font-bold text-xl text-white hover:opacity-80 transition">
           WASHIFY
-        </Link>
+        </button>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
           <NavigationMenu>
             <NavigationMenuList className="flex gap-6">
               <NavigationMenuItem>
-                <Link href="/" className="hover:text-gray-300 text-sm font-medium">
+                <button onClick={() => router.push("/")} className="hover:text-gray-300 text-sm font-medium">
                   Home
-                </Link>
+                </button>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
@@ -51,32 +53,32 @@ export default function Navbar() {
                     className="bg-gray-800 text-white border border-gray-700"
                     align="start"
                   >
-                    <DropdownMenuItem asChild>
-                      <Link href="/quick-shine">QUICK SHINE</Link>
+                    <DropdownMenuItem onClick={() => router.push("/quick-shine")}>
+                      QUICK SHINE
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/deep-cleaning">DEEP CLEANING</Link>
+                    <DropdownMenuItem onClick={() => router.push("/deep-cleaning")}>
+                      DEEP CLEANING
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/rubbing-polishing">RUBBING &amp; POLISHING</Link>
+                    <DropdownMenuItem onClick={() => router.push("/rubbing-polishing")}>
+                      RUBBING &amp; POLISHING
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/windshield-polishing">WINDSHIELD POLISHING</Link>
+                    <DropdownMenuItem onClick={() => router.push("/windshield-polishing")}>
+                      WINDSHIELD POLISHING
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link href="/booking" className="hover:text-gray-300 text-sm font-medium">
+                <button onClick={() => router.push("/booking")} className="hover:text-gray-300 text-sm font-medium">
                   Contact Us
-                </Link>
+                </button>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <Link href="/allBookings" className="hover:text-gray-300 text-sm font-medium">
+                <button onClick={() => router.push("/allBookings")} className="hover:text-gray-300 text-sm font-medium">
                   Bookings
-                </Link>
+                </button>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
@@ -97,20 +99,20 @@ export default function Navbar() {
               <SheetTitle>Navigation Menu</SheetTitle>
             </VisuallyHidden>
             <nav className="flex flex-col gap-4 text-lg font-medium">
-              <Link href="/">Home</Link>
+              <button onClick={() => router.push("/")} className="text-left hover:text-gray-300">Home</button>
 
               {/* Simple list for mobile (keeps routing client-side, avoids nested dropdown in Sheet) */}
               <div className="flex flex-col gap-2">
                 <span className="text-sm uppercase text-gray-400">Packages</span>
-                <Link href="/quick-shine">QUICK SHINE</Link>
-                <Link href="/deep-cleaning">DEEP CLEANING</Link>
-                <Link href="/rubbing-polishing">RUBBING &amp; POLISHING</Link>
-                <Link href="/windshield-polishing">WINDSHIELD POLISHING</Link>
+                <button onClick={() => router.push("/quick-shine")} className="text-left hover:text-gray-300">QUICK SHINE</button>
+                <button onClick={() => router.push("/deep-cleaning")} className="text-left hover:text-gray-300">DEEP CLEANING</button>
+                <button onClick={() => router.push("/rubbing-polishing")} className="text-left hover:text-gray-300">RUBBING &amp; POLISHING</button>
+                <button onClick={() => router.push("/windshield-polishing")} className="text-left hover:text-gray-300">WINDSHIELD POLISHING</button>
               </div>
 
-              <Link href="/booking">Contact Us</Link>
+              <button onClick={() => router.push("/booking")} className="text-left hover:text-gray-300">Contact Us</button>
 
-              <Link href="/allBookings">Bookings</Link>
+              <button onClick={() => router.push("/allBookings")} className="text-left hover:text-gray-300">Bookings</button>
 
               <Badge className="w-fit flex items-center gap-1 px-3 py-1 text-sm">
                 <MapPin size={14} /> Jaipur

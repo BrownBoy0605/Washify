@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -12,6 +13,7 @@ const ACCENT_RED = "#E81E25"; // banner
 const ACCENT_GREEN = "#8CE63A"; // CTA / subscribe
 
 export default function FooterSection() {
+  const router = useRouter();
   return (
     <footer className="mt-16 text-white w-full">
       {/* Top red contact strip */}
@@ -69,7 +71,7 @@ export default function FooterSection() {
             </Card>
 
             <Button variant="link" asChild className="mt-4 px-0 text-white/90 hover:text-white">
-              <Link href="/booking">Contact Us</Link>
+              <button onClick={() => router.push("/booking")}>Contact Us</button>
             </Button>
           </div>
 
@@ -78,17 +80,17 @@ export default function FooterSection() {
             <h3 className="text-lg font-extrabold tracking-tight">OUR SOLUTIONS <span className="text-lime-400">//</span></h3>
             <ul className="mt-4 grid grid-cols-2 gap-y-2 text-white/90">
               <li>
-                <Link href="/booking" className="hover:underline">Deep Cleaning</Link>
+                <button onClick={() => router.push("/deep-cleaning")} className="hover:underline">Deep Cleaning</button>
               </li>
               <li className="text-white/70">BOOKING</li>
               <li>
-                <Link href="/booking" className="hover:underline">Rubbing &amp; Polishing</Link>
+                <button onClick={() => router.push("/rubbing-polishing")} className="hover:underline">Rubbing &amp; Polishing</button>
               </li>
               <li>
-                <Link href="/booking" className="hover:underline">Quick Shine</Link>
+                <button onClick={() => router.push("/quick-shine")} className="hover:underline">Quick Shine</button>
               </li>
               <li>
-                <Link href="/booking" className="hover:underline">Windshield Polish</Link>
+                <button onClick={() => router.push("/windshield-polishing")} className="hover:underline">Windshield Polish</button>
               </li>
             </ul>
           </div>
@@ -144,8 +146,8 @@ export default function FooterSection() {
         <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 py-6 text-xs text-white/70 md:flex-row">
           <p>© {new Date().getFullYear()} Washify. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <Link href="/privacy" className="hover:underline">Privacy</Link>
-            <Link href="/terms" className="hover:underline">Terms</Link>
+            <button onClick={() => router.push("/privacy")} className="hover:underline">Privacy</button>
+            <button onClick={() => router.push("/terms")} className="hover:underline">Terms</button>
           </div>
         </div>
       </div>

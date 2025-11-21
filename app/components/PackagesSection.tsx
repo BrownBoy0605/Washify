@@ -7,6 +7,7 @@ import { Car, Brush, Sparkles, Wind, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import * as React from "react";
 
 type Package = {
@@ -78,6 +79,7 @@ export default function PackagesSection({
   packages = DEFAULT_PACKAGES,
   backgroundImageUrl,
 }: PackagesSectionProps) {
+  const router = useRouter();
   return (
     <section className="relative w-full min-h-screen">
       {/* Red banner background with optional tire track image */}
@@ -107,7 +109,7 @@ export default function PackagesSection({
               </h2>
             </div>
 
-            <Link href={ctaHref} className="sm:translate-y-1">
+            <button onClick={() => router.push(ctaHref)} className="sm:translate-y-1">
               <Button
                 variant="secondary"
                 className="bg-white text-[#E81E25] hover:bg-white/90 hover:text-[#c4171d] font-semibold shadow-sm"
@@ -115,7 +117,7 @@ export default function PackagesSection({
               >
                 BOOK NOW
               </Button>
-            </Link>
+            </button>
           </div>
         </div>
 
@@ -144,7 +146,7 @@ export default function PackagesSection({
                     },
                   }}
                 >
-                  <Link href={pkg.href ?? ctaHref} className="group block h-full">
+                  <button onClick={() => router.push(pkg.href ?? ctaHref)} className="group block h-full w-full text-left">
                     <Card className="h-full border-0 bg-white p-0 shadow-none dark:from-zinc-900 dark:to-zinc-900/60">
                       <div className="rounded-xl h-full bg-white p-5 shadow-sm ring-1 ring-black/5 transition-all group-hover:-translate-y-0.5 group-hover:shadow md:group-hover:shadow-lg dark:bg-zinc-900 dark:ring-white/10">
                         <CardContent className="p-0">
@@ -213,7 +215,7 @@ export default function PackagesSection({
                         </CardContent>
                       </div>
                     </Card>
-                  </Link>
+                  </button>
                 </motion.li>
               ))}
             </motion.ul>
@@ -221,9 +223,9 @@ export default function PackagesSection({
 
           {/* Mobile CTA button (since the top-right is hidden on small screens) */}
           <div className="sm:hidden mt-6 flex justify-center">
-            <Link href={ctaHref}>
+            <button onClick={() => router.push(ctaHref)}>
               <Button size="lg" className="px-8">BOOK NOW</Button>
-            </Link>
+            </button>
           </div>
         </div>
       </div>
