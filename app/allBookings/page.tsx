@@ -7,7 +7,22 @@ import FooterSection from "../components/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChevronDown, Phone, MapPin, Calendar, Clock, Wrench, Car, Droplet, Trash2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { 
+  ChevronDown, 
+  Phone, 
+  MapPin, 
+  Calendar, 
+  Clock, 
+  Wrench, 
+  Car, 
+  Droplet, 
+  Trash2,
+  Search,
+  ArrowUpDown,
+  CheckCircle2,
+  Circle
+} from "lucide-react";
 
 interface Booking {
   id: string;
@@ -21,8 +36,12 @@ interface Booking {
   car: string;
   price: number;
   waterPower: boolean;
+  status: "upcoming" | "completed";
   createdAt: string;
 }
+
+type FilterType = "all" | "upcoming" | "completed";
+type SortType = "date-newest" | "date-oldest" | "name" | "price-high" | "price-low";
 
 const PACKAGE_NAMES: Record<string, string> = {
   quick: "Quick Shine",
@@ -47,35 +66,81 @@ const PRICING: Record<string, Record<string, number>> = {
 };
 
 export default function AllBookingsPage() {
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [allBookings, setAllBookings] = useState<Booking[]>([]);
   const [displayedBookings, setDisplayedBookings] = useState<Booking[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [itemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
+
+  // Filter and Search
+  const [filterType, setFilterType] = useState<FilterType>("upcoming");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortType, setSortType] = useState<SortType>("date-newest");
 
   useEffect(() => {
     fetchAllBookings();
   }, []);
+
+  useEffect(() => {
+    applyFiltersAndSort();
+  }, [allBookings, filterType, searchQuery, sortType]);
 
   async function fetchAllBookings() {
     try {
       setLoading(true);
       const response = await fetch("/api/bookings");
       const data = await response.json();
-      // Sort by latest first
-      const sorted = data.sort(
-        (a: Booking, b: Booking) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-      setBookings(sorted);
-      setDisplayedBookings(sorted.slice(0, itemsPerPage));
+      setAllBookings(data);
     } catch (error) {
       console.error("Failed to fetch bookings:", error);
     } finally {
       setLoading(false);
     }
+  }
+
+  function applyFiltersAndSort() {
+    let filtered = [...allBookings];
+
+    // Apply filter
+    if (filterType !== "all") {
+      filtered = filtered.filter((b) => b.status === filterType);
+    }
+
+    // Apply search
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (b) =>
+          b.name.toLowerCase().includes(query) ||
+          b.phone.includes(query) ||
+          b.city.toLowerCase().includes(query) ||
+          b.address.toLowerCase().includes(query)
+      );
+    }
+
+    // Apply sort
+    filtered.sort((a, b) => {
+      switch (sortType) {
+        case "date-newest":
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        case "date-oldest":
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        case "name":
+          return a.name.localeCompare(b.name);
+        case "price-high":
+          return b.price - a.price;
+        case "price-low":
+          return a.price - b.price;
+        default:
+          return 0;
+      }
+    });
+
+    setCurrentPage(1);
+    setDisplayedBookings(filtered.slice(0, itemsPerPage));
   }
 
   function calculatePrice(packages: string[], car: string): number {
@@ -96,11 +161,8 @@ export default function AllBookingsPage() {
       });
 
       if (response.ok) {
-        // Remove from state
-        const updatedBookings = bookings.filter((b) => b.id !== bookingId);
-        setBookings(updatedBookings);
-        setDisplayedBookings(updatedBookings.slice(0, itemsPerPage));
-        setCurrentPage(1);
+        const updatedBookings = allBookings.filter((b) => b.id !== bookingId);
+        setAllBookings(updatedBookings);
         setExpandedId(null);
       } else {
         alert("Failed to delete booking");
@@ -113,13 +175,76 @@ export default function AllBookingsPage() {
     }
   }
 
+  async function updateBookingStatus(bookingId: string, newStatus: "upcoming" | "completed") {
+    try {
+      setUpdatingStatus(bookingId);
+      const response = await fetch(`/api/bookings/${bookingId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (response.ok) {
+        const updatedBookings = allBookings.map((b) =>
+          b.id === bookingId ? { ...b, status: newStatus } : b
+        );
+        setAllBookings(updatedBookings);
+      } else {
+        alert("Failed to update booking status");
+      }
+    } catch (error) {
+      console.error("Update status error:", error);
+      alert("Error updating booking status");
+    } finally {
+      setUpdatingStatus(null);
+    }
+  }
+
   function loadMore() {
+    const allFiltered = getFilteredAndSortedBookings();
     const nextPage = currentPage + 1;
     const startIndex = nextPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const newBookings = bookings.slice(0, endIndex);
-    setDisplayedBookings(newBookings);
+    setDisplayedBookings(allFiltered.slice(0, endIndex));
     setCurrentPage(nextPage);
+  }
+
+  function getFilteredAndSortedBookings() {
+    let filtered = [...allBookings];
+
+    if (filterType !== "all") {
+      filtered = filtered.filter((b) => b.status === filterType);
+    }
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (b) =>
+          b.name.toLowerCase().includes(query) ||
+          b.phone.includes(query) ||
+          b.city.toLowerCase().includes(query) ||
+          b.address.toLowerCase().includes(query)
+      );
+    }
+
+    filtered.sort((a, b) => {
+      switch (sortType) {
+        case "date-newest":
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        case "date-oldest":
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        case "name":
+          return a.name.localeCompare(b.name);
+        case "price-high":
+          return b.price - a.price;
+        case "price-low":
+          return a.price - b.price;
+        default:
+          return 0;
+      }
+    });
+
+    return filtered;
   }
 
   function formatDate(dateStr: string) {
@@ -140,7 +265,11 @@ export default function AllBookingsPage() {
     return slots[slotId] || slotId;
   }
 
-  const hasMore = displayedBookings.length < bookings.length;
+  const allFiltered = getFilteredAndSortedBookings();
+  const hasMore = displayedBookings.length < allFiltered.length;
+
+  const upcomingCount = allBookings.filter((b) => b.status === "upcoming").length;
+  const completedCount = allBookings.filter((b) => b.status === "completed").length;
 
   return (
     <main className="min-h-screen w-full bg-gradient-to-b from-background to-muted/30">
@@ -151,9 +280,66 @@ export default function AllBookingsPage() {
         <div className="mb-8">
           <h1 className="text-4xl font-bold tracking-tight mb-2">All Bookings</h1>
           <p className="text-muted-foreground">
-            Total bookings: <span className="font-semibold text-foreground">{bookings.length}</span>
+            Total: <span className="font-semibold text-foreground">{allBookings.length}</span> • 
+            <span className="ml-2">Upcoming: <span className="font-semibold text-foreground">{upcomingCount}</span></span> •
+            <span className="ml-2">Completed: <span className="font-semibold text-foreground">{completedCount}</span></span>
           </p>
         </div>
+
+        {/* Controls Section */}
+        {!loading && allBookings.length > 0 && (
+          <div className="mb-6 space-y-4">
+            {/* Search */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <Input
+                placeholder="Search by name, phone, city, or address..."
+                className="pl-10"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            {/* Filters and Sort */}
+            <div className="flex flex-col md:flex-row gap-3">
+              {/* Filter Buttons */}
+              <div className="flex gap-2 flex-wrap">
+                {(["all", "upcoming", "completed"] as const).map((filter) => (
+                  <Button
+                    key={filter}
+                    variant={filterType === filter ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setFilterType(filter)}
+                    className="capitalize"
+                  >
+                    {filter === "all" ? "All" : filter === "upcoming" ? "Upcoming" : "Completed"}
+                  </Button>
+                ))}
+              </div>
+
+              {/* Sort Dropdown */}
+              <div className="flex gap-2">
+                <ArrowUpDown className="w-4 h-4 text-muted-foreground self-center" />
+                <select
+                  value={sortType}
+                  onChange={(e) => setSortType(e.target.value as SortType)}
+                  className="px-3 py-1 rounded-md border border-input bg-background text-sm"
+                >
+                  <option value="date-newest">Date (Newest)</option>
+                  <option value="date-oldest">Date (Oldest)</option>
+                  <option value="name">Name (A-Z)</option>
+                  <option value="price-high">Price (High to Low)</option>
+                  <option value="price-low">Price (Low to High)</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Results Count */}
+            <p className="text-sm text-muted-foreground">
+              Showing {displayedBookings.length} of {allFiltered.length} booking{allFiltered.length !== 1 ? "s" : ""}
+            </p>
+          </div>
+        )}
 
         {/* Loading State */}
         {loading && (
@@ -163,10 +349,19 @@ export default function AllBookingsPage() {
         )}
 
         {/* Empty State */}
-        {!loading && bookings.length === 0 && (
+        {!loading && allBookings.length === 0 && (
           <Card className="border-0 shadow-lg">
             <CardContent className="py-12 text-center">
               <p className="text-muted-foreground text-lg">No bookings found</p>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* No Results for Filters */}
+        {!loading && allBookings.length > 0 && displayedBookings.length === 0 && (
+          <Card className="border-0 shadow-lg">
+            <CardContent className="py-12 text-center">
+              <p className="text-muted-foreground text-lg">No bookings match your search or filters</p>
             </CardContent>
           </Card>
         )}
@@ -177,6 +372,7 @@ export default function AllBookingsPage() {
             <AnimatePresence mode="popLayout">
               {displayedBookings.map((booking, index) => {
                 const calculatedPrice = calculatePrice(booking.packages, booking.car);
+                const isCompleted = booking.status === "completed";
                 return (
                   <motion.div
                     key={booking.id}
@@ -186,10 +382,11 @@ export default function AllBookingsPage() {
                     transition={{ delay: index * 0.05 }}
                   >
                     <Card
-                      className="border-0 shadow-lg hover:shadow-xl transition-shadow overflow-hidden cursor-pointer"
+                      className={`border-0 shadow-lg hover:shadow-xl transition-all overflow-hidden cursor-pointer ${
+                        isCompleted ? "opacity-75 bg-muted/30" : ""
+                      }`}
                       onClick={() => {
-                        // Only toggle if not clicking the delete button
-                        if ((event?.target as HTMLElement)?.closest('[data-delete-btn]')) {
+                        if ((event?.target as HTMLElement)?.closest('[data-action-btn]')) {
                           return;
                         }
                         setExpandedId(expandedId === booking.id ? null : booking.id);
@@ -199,9 +396,20 @@ export default function AllBookingsPage() {
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-3 mb-2 flex-wrap">
-                              <CardTitle className="text-lg">{booking.name}</CardTitle>
-                              <Badge variant="secondary" className="text-xs">
+                              <CardTitle className={`text-lg ${isCompleted ? "line-through text-muted-foreground" : ""}`}>
+                                {booking.name}
+                              </CardTitle>
+                              <Badge 
+                                variant={isCompleted ? "outline" : "secondary"} 
+                                className="text-xs"
+                              >
                                 ₹{calculatedPrice}
+                              </Badge>
+                              <Badge 
+                                variant={isCompleted ? "secondary" : "outline"} 
+                                className="text-xs"
+                              >
+                                {isCompleted ? "Completed" : "Upcoming"}
                               </Badge>
                             </div>
                             <div className="flex flex-wrap gap-2 items-center text-sm text-muted-foreground">
@@ -213,9 +421,36 @@ export default function AllBookingsPage() {
                                 <MapPin className="w-3 h-3" />
                                 {booking.city}
                               </span>
+                              <span className="flex items-center gap-1">
+                                <Calendar className="w-3 h-3" />
+                                {formatDate(booking.date)}
+                              </span>
                             </div>
                           </div>
                           <div className="flex items-center gap-2 flex-shrink-0">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                updateBookingStatus(
+                                  booking.id,
+                                  isCompleted ? "upcoming" : "completed"
+                                );
+                              }}
+                              disabled={updatingStatus === booking.id}
+                              data-action-btn
+                              title={isCompleted ? "Mark as Upcoming" : "Mark as Completed"}
+                            >
+                              {updatingStatus === booking.id ? (
+                                <span className="animate-spin">⟳</span>
+                              ) : isCompleted ? (
+                                <CheckCircle2 className="w-4 h-4 text-green-600" />
+                              ) : (
+                                <Circle className="w-4 h-4 text-muted-foreground" />
+                              )}
+                            </Button>
+
                             <Button
                               variant="ghost"
                               size="sm"
@@ -225,7 +460,7 @@ export default function AllBookingsPage() {
                               }}
                               disabled={deleting === booking.id}
                               className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                              data-delete-btn
+                              data-action-btn
                             >
                               {deleting === booking.id ? (
                                 <span className="animate-spin">⟳</span>
@@ -233,10 +468,12 @@ export default function AllBookingsPage() {
                                 <Trash2 className="w-4 h-4" />
                               )}
                             </Button>
+
                             <motion.div
                               animate={{ rotate: expandedId === booking.id ? 180 : 0 }}
                               transition={{ duration: 0.2 }}
                               className="text-muted-foreground flex-shrink-0"
+                              data-action-btn
                             >
                               <ChevronDown className="w-5 h-5" />
                             </motion.div>
@@ -380,13 +617,13 @@ export default function AllBookingsPage() {
               className="px-8"
               variant="outline"
             >
-              Load More Bookings ({bookings.length - displayedBookings.length} remaining)
+              Load More Bookings ({allFiltered.length - displayedBookings.length} remaining)
             </Button>
           </motion.div>
         )}
 
         {/* End Message */}
-        {!hasMore && bookings.length > 0 && (
+        {!hasMore && displayedBookings.length > 0 && (
           <motion.div
             className="mt-8 text-center text-muted-foreground text-sm"
             initial={{ opacity: 0 }}
