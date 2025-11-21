@@ -186,12 +186,19 @@ export default function AllBookingsPage() {
                     transition={{ delay: index * 0.05 }}
                   >
                     <Card
-                      className="border-0 shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
+                      className="border-0 shadow-lg hover:shadow-xl transition-shadow overflow-hidden cursor-pointer"
+                      onClick={() => {
+                        // Only toggle if not clicking the delete button
+                        if ((event?.target as HTMLElement)?.closest('[data-delete-btn]')) {
+                          return;
+                        }
+                        setExpandedId(expandedId === booking.id ? null : booking.id);
+                      }}
                     >
                       <CardHeader className="pb-3">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-2">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-3 mb-2 flex-wrap">
                               <CardTitle className="text-lg">{booking.name}</CardTitle>
                               <Badge variant="secondary" className="text-xs">
                                 ₹{calculatedPrice}
@@ -208,13 +215,17 @@ export default function AllBookingsPage() {
                               </span>
                             </div>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-shrink-0">
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => deleteBooking(booking.id)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                deleteBooking(booking.id);
+                              }}
                               disabled={deleting === booking.id}
                               className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                              data-delete-btn
                             >
                               {deleting === booking.id ? (
                                 <span className="animate-spin">⟳</span>
@@ -222,19 +233,13 @@ export default function AllBookingsPage() {
                                 <Trash2 className="w-4 h-4" />
                               )}
                             </Button>
-                            <motion.button
-                              onClick={() =>
-                                setExpandedId(expandedId === booking.id ? null : booking.id)
-                              }
-                              className="text-muted-foreground hover:text-foreground"
+                            <motion.div
+                              animate={{ rotate: expandedId === booking.id ? 180 : 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="text-muted-foreground flex-shrink-0"
                             >
-                              <motion.div
-                                animate={{ rotate: expandedId === booking.id ? 180 : 0 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                <ChevronDown className="w-5 h-5" />
-                              </motion.div>
-                            </motion.button>
+                              <ChevronDown className="w-5 h-5" />
+                            </motion.div>
                           </div>
                         </div>
                       </CardHeader>
