@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { sendBookingNotification, sendCustomerConfirmation } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
   try {
@@ -41,6 +42,24 @@ export async function POST(request: NextRequest) {
         waterPower: waterPower || false,
       },
     });
+
+    // Send notification emails
+    await sendBookingNotification({
+      name,
+      phone,
+      city,
+      address,
+      date,
+      timeSlot,
+      packages,
+      car,
+      price: parseInt(price) || 0,
+      waterPower: waterPower || false,
+      bookingId: booking.id,
+    });
+
+    // Optionally send customer confirmation (requires customer email - for now just logs)
+    console.log(`✅ Booking #${booking.id} created and owner notified`);
 
     return NextResponse.json(
       { success: true, bookingId: booking.id },

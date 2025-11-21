@@ -64,6 +64,7 @@ export default function BookingPage() {
   const [agree, setAgree] = useState(false);
   const [waterPower, setWaterPower] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -156,6 +157,8 @@ export default function BookingPage() {
     e.preventDefault();
     if (!validate()) return;
 
+    setIsSubmitting(true);
+
     const payload = {
       name,
       phone,
@@ -190,6 +193,8 @@ export default function BookingPage() {
     } catch (error) {
       console.error("Submission error:", error);
       alert("❌ Failed to submit booking. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -388,7 +393,19 @@ export default function BookingPage() {
                     </div>
 
                     <div className="flex justify-end">
-                      <Button size="lg" type="submit" className="rounded-2xl px-8">Submit</Button>
+                      <Button size="lg" type="submit" className="rounded-2xl px-8" disabled={isSubmitting}>
+                        {isSubmitting ? (
+                          <span className="flex items-center gap-2">
+                            <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Submitting...
+                          </span>
+                        ) : (
+                          "Submit"
+                        )}
+                      </Button>
                     </div>
                   </section>
                 </form>
