@@ -74,12 +74,6 @@ export default function Navbar() {
                   Contact Us
                 </button>
               </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <button onClick={() => router.push("/allBookings")} className="hover:text-gray-300 text-sm font-medium">
-                  Bookings
-                </button>
-              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
 
@@ -112,7 +106,7 @@ export default function Navbar() {
 
               <button onClick={() => router.push("/booking")} className="text-left hover:text-gray-300">Contact Us</button>
 
-              
+         
               <Badge className="w-fit flex items-center gap-1 px-3 py-1 text-sm">
                 <MapPin size={14} /> Jaipur
               </Badge>
