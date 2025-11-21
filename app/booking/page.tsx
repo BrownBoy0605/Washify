@@ -118,11 +118,17 @@ export default function BookingPage() {
     });
   }
 
+  function getMinDate() {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  }
+
   function validate() {
     const e: string[] = [];
     if (name.trim().length < 2) e.push("Please enter your full name.");
     if (!/^\d{10}$/.test(phone)) e.push("Phone number must be exactly 10 digits.");
     if (!date) e.push("Please select a booking date.");
+    else if (new Date(date) < new Date(new Date().toISOString().split('T')[0])) e.push("Booking date must be today or later.");
     if (!timeSlot) e.push("Please choose a time slot.");
     if (selectedPackages.size === 0) e.push("Please select at least one package.");
     if (!car) e.push("Please select a car type.");
@@ -271,7 +277,7 @@ export default function BookingPage() {
                   <section className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
                       <Label htmlFor="date">Booking Date</Label>
-                      <Input id="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                      <Input id="date" type="date" min={getMinDate()} value={date} onChange={(e) => setDate(e.target.value)} />
                     </div>
                     <div className="space-y-2">
                       <Label>Available Time Slot</Label>

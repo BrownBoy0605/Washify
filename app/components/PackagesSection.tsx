@@ -109,15 +109,15 @@ export default function PackagesSection({
               </h2>
             </div>
 
-            <button onClick={() => router.push(ctaHref)} className="sm:translate-y-1">
+            <Link href={ctaHref}>
               <Button
                 variant="secondary"
-                className="bg-white text-[#E81E25] hover:bg-white/90 hover:text-[#c4171d] font-semibold shadow-sm"
+                className="bg-white text-[#E81E25] hover:bg-white/90 hover:text-[#c4171d] font-semibold shadow-sm sm:translate-y-1"
                 aria-label="Book now"
               >
                 BOOK NOW
               </Button>
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -146,7 +146,7 @@ export default function PackagesSection({
                     },
                   }}
                 >
-                  <button onClick={() => router.push(pkg.href ?? ctaHref)} className="group block h-full w-full text-left">
+                  <Link href={pkg.href ?? ctaHref} className="group block h-full w-full text-left">
                     <Card className="h-full border-0 bg-white p-0 shadow-none dark:from-zinc-900 dark:to-zinc-900/60">
                       <div className="rounded-xl h-full bg-white p-5 shadow-sm ring-1 ring-black/5 transition-all group-hover:-translate-y-0.5 group-hover:shadow md:group-hover:shadow-lg dark:bg-zinc-900 dark:ring-white/10">
                         <CardContent className="p-0">
@@ -215,7 +215,7 @@ export default function PackagesSection({
                         </CardContent>
                       </div>
                     </Card>
-                  </button>
+                  </Link>
                 </motion.li>
               ))}
             </motion.ul>
@@ -223,9 +223,9 @@ export default function PackagesSection({
 
           {/* Mobile CTA button (since the top-right is hidden on small screens) */}
           <div className="sm:hidden mt-6 flex justify-center">
-            <button onClick={() => router.push(ctaHref)}>
+            <Link href={ctaHref}>
               <Button size="lg" className="px-8">BOOK NOW</Button>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
