@@ -14,8 +14,9 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { VisuallyHidden } from "@/components/ui/visually-hidden";
 import { Menu, MapPin } from "lucide-react";
 
 export default function Navbar() {
@@ -86,6 +87,9 @@ export default function Navbar() {
             <Menu size={24} />
           </SheetTrigger>
           <SheetContent side="right" className="p-6">
+            <VisuallyHidden asChild>
+              <SheetTitle>Navigation Menu</SheetTitle>
+            </VisuallyHidden>
             <nav className="flex flex-col gap-4 text-lg font-medium">
               <Link href="/">Home</Link>
 

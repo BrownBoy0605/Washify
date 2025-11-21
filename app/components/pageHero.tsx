@@ -7,6 +7,8 @@ import { Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import * as React from "react";
+import { useContext } from "react";
+import { ServicePageContext } from "./service-page-wrapper";
 
 type BreadcrumbItem = { label: string; href?: string };
 type Cta = { label: string; href: string; variant?: "default" | "secondary" | "outline" | "ghost" | "link" };
@@ -37,10 +39,24 @@ export default function PageHero({
   children,
 }: PageHeroProps) {
   const isCenter = align === "center";
+  const pageContext = useContext(ServicePageContext);
+
+  const handleImageLoad = () => {
+    if (pageContext?.onImageReady) {
+      pageContext.onImageReady();
+    }
+  };
 
   return (
     <section className={cn("relative w-full overflow-hidden", heightClassName, className)}>
-      <Image src={bgSrc} alt={`${title} background`} fill priority className="object-cover" />
+      <Image 
+        src={bgSrc} 
+        alt={`${title} background`} 
+        fill 
+        priority 
+        className="object-cover" 
+        onLoad={handleImageLoad}
+      />
 
       {/* Overlay (customizable) */}
       <div />

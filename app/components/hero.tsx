@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Phone, ChevronRight, MessageCircle } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 type Slide = {
   src: string;
@@ -14,6 +14,7 @@ type Slide = {
 interface HeroProps {
   slides?: Slide[]; // pass multiple images if you want the dots to switch
   city?: string;
+  onVideoReady?: () => void;
 }
 
 export default function Hero({
@@ -23,10 +24,19 @@ export default function Hero({
     { src: "/hero/car-3.jpg", alt: "Clean interior" },
   ],
   city = "Jaipur",
+  onVideoReady,
 }: HeroProps) {
   const [index, setIndex] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const current = slides[index];
+
+  const handleVideoCanPlay = () => {
+    // Video has loaded and can play
+    if (onVideoReady) {
+      onVideoReady();
+    }
+  };
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -34,13 +44,15 @@ export default function Hero({
       <div className="absolute inset-0">
         {/* next/image for perf, with object-cover */}
         <video
-    src={current.src}
-    autoPlay
-    loop
-    muted
-    playsInline
-    className="absolute inset-0 w-full h-full object-cover"
-  />
+          ref={videoRef}
+          src={current.src}
+          autoPlay
+          loop
+          muted
+          playsInline
+          onCanPlay={handleVideoCanPlay}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
         {/* Dark overlay + subtle gradient from bottom */}
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" />

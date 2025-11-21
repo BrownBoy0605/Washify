@@ -6,6 +6,10 @@ import { XIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Dialog component - Requires DialogTitle for accessibility
+ * Always include DialogTitle or use hideTitle with VisuallyHidden if you don't want to display it
+ */
 function Dialog({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Root>) {
