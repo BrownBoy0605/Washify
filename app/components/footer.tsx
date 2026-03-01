@@ -41,8 +41,8 @@ export default function FooterSection() {
 
           <div className="flex items-center justify-start gap-2 md:justify-end">
             <Mail className="h-4 w-4" />
-            <a href="mailto:info@washify.com" className="font-semibold hover:underline">
-              info@washify.com
+            <a href="mailto:info@cleanwheels.com" className="font-semibold hover:underline">
+              info@cleanwheels.com
             </a>
           </div>
         </div>
@@ -89,9 +89,9 @@ export default function FooterSection() {
               <li>
                 <button onClick={() => router.push("/quick-shine")} className="hover:underline">Quick Shine</button>
               </li>
-              <li>
-                <button onClick={() => router.push("/windshield-polishing")} className="hover:underline">Windshield Polish</button>
-              </li>
+              {/* <li>
+                <button onClick={() => router.push("/ac-vent-foam-cleaning")} className="hover:underline">AC Vent Foam Cleaning</button>
+              </li> */}
             </ul>
           </div>
 
@@ -144,7 +144,7 @@ export default function FooterSection() {
         <Separator className="border-white/10" />
 
         <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 py-6 text-xs text-white/70 md:flex-row">
-          <p>© {new Date().getFullYear()} Washify. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} CleanWheels. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <button onClick={() => router.push("/privacy")} className="hover:underline">Privacy</button>
             <button onClick={() => router.push("/terms")} className="hover:underline">Terms</button>

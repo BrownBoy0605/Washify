@@ -1,4 +1,4 @@
-// app/rubbing-polishing/page.tsx
+// app/ac-vent-foam-cleaning/page.tsx
 import Navbar from "../components/navbar";
 import PageHero from "../components/pageHero";
 import QuickShinePricing from "../components/quickShinePricing";
@@ -6,7 +6,7 @@ import FooterSection from "../components/footer";
 import ServicesGrid from "../components/Services";
 import ServicePageWrapper from "../components/service-page-wrapper";
 
-export default function WindShieldPolishing() {
+export default function ACVentFoamCleaning() {
     return (
         <ServicePageWrapper>
             <div className="justify-center items-center min-h-screen dark">
@@ -28,14 +28,11 @@ export default function WindShieldPolishing() {
 
                 <ServicesGrid
                     services={[
-                        { title: "Shampoo Wash", icon: "/services/exterior.png" },
-                        { title: "Sandpaper Rubbing", icon: "/services/sandpaper.png" },
-                        { title: "Foam Cleaning", icon: "/services/ac-vent.png" },
-                        { title: "Headlight Rubbing", icon: "/services/headlight-rubbing.png" },
+                        { title: "AC Foam Cleaning", icon: "/services/ac-vent.png" },
                     ]}
                 />
 
-                <QuickShinePricing prices={[799, 899, 899, 999, 999]} />
+                <QuickShinePricing prices={[299, 299, 299, 299, 299]} />
 
                 <FooterSection />
                 </div>

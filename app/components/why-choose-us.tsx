@@ -21,10 +21,10 @@ interface WhyChooseUsProps {
 }
 
 export default function WhyChooseUs({
-  brand = "WASHIFY",
+  brand = "CleanWheels",
   title = "WHY CHOOSE US //",
   description =
-    "WASHIFY provides professional car cleaning services at your doorstep whenever you want, so you can spend your time doing the things you love.",
+    "CleanWheels provides professional car cleaning services at your doorstep whenever you want, so you can spend your time doing the things you love.",
   metrics = [
     { label: "QUALITY SERVICES", value: 90 },
     { label: "EXPERIENCED TECHNICIANS", value: 85 },

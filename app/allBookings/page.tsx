@@ -47,7 +47,7 @@ const PACKAGE_NAMES: Record<string, string> = {
   quick: "Quick Shine",
   deep: "Deep Cleaning",
   rubbing: "Rubbing & Polishing",
-  windshield: "Windshield Polishing",
+  "ac-vent": "AC Vent Foam Cleaning",
 };
 
 const CAR_NAMES: Record<string, string> = {
@@ -62,7 +62,7 @@ const PRICING: Record<string, Record<string, number>> = {
   quick: { hatchback: 399, sedan: 399, compact: 399, suv5: 449, suv7: 449 },
   deep: { hatchback: 799, sedan: 999, compact: 999, suv5: 1199, suv7: 1399 },
   rubbing: { hatchback: 1399, sedan: 1599, compact: 1599, suv5: 1799, suv7: 1799 },
-  windshield: { hatchback: 799, sedan: 899, compact: 899, suv5: 999, suv7: 999 },
+  "ac-vent": { hatchback: 299, sedan: 299, compact: 299, suv5: 299, suv7: 299 },
 };
 
 export default function AllBookingsPage() {

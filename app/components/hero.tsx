@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 type Slide = {
   src: string;
   alt?: string;
+  poster?: string; // fallback image while video loads
 };
 
 interface HeroProps {
@@ -20,9 +21,9 @@ interface HeroProps {
 
 export default function Hero({
   slides = [
-    { src: "/hero/car-1.jpg", alt: "Blue sports car" },
-    { src: "/hero/car-2.jpg", alt: "Detailing" },
-    { src: "/hero/car-3.jpg", alt: "Clean interior" },
+    { src: "/hero/car-1.jpg", alt: "Blue sports car", poster: "/hero/car-1.jpg" },
+    { src: "/hero/car-2.jpg", alt: "Detailing", poster: "/hero/car-2.jpg" },
+    { src: "/hero/car-3.jpg", alt: "Clean interior", poster: "/hero/car-3.jpg" },
   ],
   city = "Jaipur",
   onVideoReady,
@@ -48,10 +49,12 @@ export default function Hero({
         <video
           ref={videoRef}
           src={current.src}
+          poster={current.poster}
           autoPlay
           loop
           muted
           playsInline
+          preload="metadata"
           onCanPlay={handleVideoCanPlay}
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -74,7 +77,7 @@ export default function Hero({
 
             {/* Brand */}
             <h1 className="mt-3 text-5xl font-extrabold leading-tight text-white md:text-7xl">
-              WASHIFY
+              CleanWheels
             </h1>
 
             {/* City badge like screenshot */}
@@ -90,10 +93,12 @@ export default function Hero({
               <Button size="lg" className="gap-2" onClick={() => router.push("/booking")}>
                 Book Now <ChevronRight className="h-4 w-4" />
               </Button>
-              <Button size="lg" variant="secondary" className="gap-2">
-                <Phone className="h-4 w-4" />
-                Contact Us
-              </Button>
+              <a href="https://wa.me/919251224199" target="_blank" rel="noreferrer">
+                <Button size="lg" variant="secondary" className="gap-2">
+                  <Phone className="h-4 w-4" />
+                  Contact Us
+                </Button>
+              </a>
             </div>
           </div>
         </div>
@@ -116,13 +121,13 @@ export default function Hero({
 
       {/* Floating WhatsApp button (bottom-left) */}
       <a
-        href="https://wa.me/919999999999"
+        href="https://wa.me/919251224199"
         target="_blank"
         rel="noreferrer"
         className="fixed left-4 bottom-4 z-20"
       >
-        <Button size="icon" className="h-12 w-12 rounded-full shadow-lg" aria-label="Contact on WhatsApp">
-          <MessageCircle className="h-6 w-6" />
+        <Button size="icon" className="h-14 w-14 rounded-full shadow-lg bg-green-500 hover:bg-green-600 p-0" aria-label="Contact on WhatsApp">
+          <Image src="/whatsapp.png" alt="WhatsApp" width={56} height={56} className="h-full w-full" />
         </Button>
       </a>
     </section>

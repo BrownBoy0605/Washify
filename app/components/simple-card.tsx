@@ -5,7 +5,7 @@ export function SimpleCard() {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Washify</CardTitle>
+        <CardTitle>CleanWheels</CardTitle>
         <CardDescription>Make laundry easy and fast.</CardDescription>
       </CardHeader>
       <CardContent>

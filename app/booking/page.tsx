@@ -19,7 +19,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 
 // Assets expected:
 // /public/cars/{compact-suv.jpg,hatchback.jpg,sedan.jpg,suv-5-seater.jpg,suv-7-seater.jpg}
-// /public/services/{quick-shine.png,deep.png,rubbing.png,windshield.png}
+// /public/services/{quick-shine.png,deep.png,rubbing.png,ac-vent.png}
 
 const cities = ["Jaipur", "Gurgaon", "Delhi", "Noida", "Pune", "Bengaluru"]; // adjust as needed
 
@@ -27,7 +27,7 @@ const PACKAGES = [
   { key: "quick", label: "Quick Shine", img: "/services/quick-shine.png", desc: "Exterior wash + quick dry" },
   { key: "deep", label: "Deep Cleaning", img: "/services/deep.png", desc: "Interior shampoo + vacuum + exterior wash" },
   { key: "rubbing", label: "Rubbing & Polishing", img: "/services/rubbing.png", desc: "Paint correction + polish" },
-  { key: "windshield", label: "WindShield Polishing", img: "/services/windshield.png", desc: "Glass polishing + water repellent" },
+  { key: "ac-vent", label: "AC Vent Foam Cleaning", img: "/services/ac-ventt.png", desc: "Thorough cleaning of AC vents" },
 ] as const;
 
 const CARS = [
@@ -42,7 +42,7 @@ const PRICING: Record<string, Record<string, number>> = {
   quick: { hatchback: 399, sedan: 399, compact: 399, suv5: 449, suv7: 449 },
   deep: { hatchback: 799, sedan: 999, compact: 999, suv5: 1199, suv7: 1399 },
   rubbing: { hatchback: 1399, sedan: 1599, compact: 1599, suv5: 1799, suv7: 1799 },
-  windshield: { hatchback: 799, sedan: 899, compact: 899, suv5: 999, suv7: 999 },
+  "ac-vent": { hatchback: 299, sedan: 299, compact: 299, suv5: 299, suv7: 299 },
 };
 
 const TIME_SLOTS = [
@@ -487,7 +487,7 @@ export default function BookingPage() {
                 </CardContent>
               </Card>
 
-              <div className="mt-4 text-center text-xs text-muted-foreground">Need help? Contact our support at <a className="underline">support@washify.example</a></div>
+              <div className="mt-4 text-center text-xs text-muted-foreground">Need help? Contact our support at <a className="underline">support@cleanwheels.example</a></div>
             </div>
           </div>
         </div>

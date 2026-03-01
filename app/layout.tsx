@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Washify",
+  title: "CleanWheels",
   description: "Premium Car Wash & Detailing Services",
 };
 

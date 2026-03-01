@@ -91,7 +91,7 @@ export async function sendBookingNotification(
           </div>
           
           <div style="padding: 20px; text-align: center; color: #666; font-size: 12px;">
-            <p>This is an automated notification from Washify Booking System</p>
+            <p>This is an automated notification from CleanWheels Booking System</p>
             <p>Please respond to the customer as soon as possible to confirm the booking.</p>
           </div>
         </div>
@@ -126,7 +126,7 @@ export async function sendCustomerConfirmation(
           
           <div style="padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; margin-top: 20px;">
             <p style="font-size: 16px;">Dear <strong>${booking.name}</strong>,</p>
-            <p>Thank you for booking with Washify! Your booking has been confirmed.</p>
+            <p>Thank you for booking with CleanWheels! Your booking has been confirmed.</p>
             
             <h3 style="color: #E81E25; border-bottom: 2px solid #E81E25; padding-bottom: 10px;">Booking Summary</h3>
             

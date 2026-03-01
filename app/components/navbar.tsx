@@ -27,7 +27,7 @@ export default function Navbar() {
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
         {/* Logo */}
         <button onClick={() => router.push("/")} className="font-bold text-xl text-white hover:opacity-80 transition">
-          WASHIFY
+          CleanWheels
         </button>
 
         {/* Desktop Menu */}
@@ -62,9 +62,9 @@ export default function Navbar() {
                     <DropdownMenuItem onClick={() => router.push("/rubbing-polishing")}>
                       RUBBING &amp; POLISHING
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => router.push("/windshield-polishing")}>
-                      WINDSHIELD POLISHING
-                    </DropdownMenuItem>
+                    {/* <DropdownMenuItem onClick={() => router.push("/ac-vent-foam-cleaning")}>
+                      AC VENT FOAM CLEANING
+                    </DropdownMenuItem> */}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </NavigationMenuItem>
@@ -101,7 +101,7 @@ export default function Navbar() {
                 <button onClick={() => router.push("/quick-shine")} className="text-left hover:text-gray-300">QUICK SHINE</button>
                 <button onClick={() => router.push("/deep-cleaning")} className="text-left hover:text-gray-300">DEEP CLEANING</button>
                 <button onClick={() => router.push("/rubbing-polishing")} className="text-left hover:text-gray-300">RUBBING &amp; POLISHING</button>
-                <button onClick={() => router.push("/windshield-polishing")} className="text-left hover:text-gray-300">WINDSHIELD POLISHING</button>
+                <button onClick={() => router.push("/ac-vent-foam-cleaning")} className="text-left hover:text-gray-300">AC VENT FOAM CLEANING</button>
               </div>
 
               <button onClick={() => router.push("/booking")} className="text-left hover:text-gray-300">Contact Us</button>

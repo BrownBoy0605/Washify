@@ -53,14 +53,14 @@ const DEFAULT_PACKAGES: Package[] = [
     detailHref: "/rubbing-polishing",
   },
   {
-    id: "windshield",
-    title: "WINDSHIELD POLISH",
-    desc: "Clear the way to perfection with glass polishing that turns foggy into fabulous!",
-    time: "Time · Around 2 hrs",
-    price: "₹799/-",
+    id: "ac-vent",
+    title: "AC VENT FOAM CLEANING",
+    desc: "Breathe easy with our thorough AC vent foam cleaning service.",
+    time: "Time · Around 1 hr",
+    price: "₹299/-",
     icon: <Wind className="h-6 w-6" aria-hidden />,
     href: "/booking",
-    detailHref: "/windshield-polishing",
+    detailHref: "/ac-vent-foam-cleaning",
   },
 ];
 

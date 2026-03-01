@@ -37,7 +37,7 @@ const DATA: Testimonial[] = [
   },
   {
     quote:
-      "Smooth booking, fast turnaround, and the interior smelled brand new. Lovely service — will use Washify again.",
+      "Smooth booking, fast turnaround, and the interior smelled brand new. Lovely service — will use CleanWheels again.",
     name: "Priya Nair",
     image: "/photos/user-aman.jpg",
     rating: 5,

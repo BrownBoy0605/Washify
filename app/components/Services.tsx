@@ -37,7 +37,7 @@ const FEATURE_ICON_MAP: Record<string, string> = {
   "headlight-rubbing": "/services/headlight-rubbing.png",
   "boot-buffing": "/services/boot-buffing .png", // file includes a space as provided
   "exterior-wax-polishing": "/services/exteriorWAX.png",
-  "windshield-rubbing": "/services/windshield.png", // mapping "Windsheild" -> "Windshield"
+  "ac-vent": "/services/ac-vent.png", // AC vent foam cleaning
 };
 
 // optional fallback image if a feature isn’t mapped
@@ -60,7 +60,8 @@ function normalizeFeatureKey(raw: string) {
     "vacume-cleaning": "vacuum-cleaning",
     "vacuum": "vacuum-cleaning",
     "bonet-rubbing": "bonnet-rubbing",
-    "windsheild-rubbing": "windshield-rubbing",
+    "ac-vent-foam": "ac-vent",
+    "ac-vent-cleaning": "ac-vent",
     "trunk-dry-cleaning": "trunk-drycleaning",
     "mats-drycleaning": "matts-drycleaning", // if someone writes "mats"
   };
