@@ -1,0 +1,135 @@
+"use client";
+
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { MapPin, Phone, ChevronRight, MessageCircle } from "lucide-react";
+import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+
+type Slide = {
+  src: string;
+  alt?: string;
+  poster?: string; // fallback image while video loads
+};
+
+interface HeroProps {
+  slides?: Slide[]; // pass multiple images if you want the dots to switch
+  city?: string;
+  onVideoReady?: () => void;
+}
+
+export default function Hero({
+  slides = [
+    { src: "/hero/car-1.jpg", alt: "Blue sports car", poster: "/hero/car-1.jpg" },
+    { src: "/hero/car-2.jpg", alt: "Detailing", poster: "/hero/car-2.jpg" },
+    { src: "/hero/car-3.jpg", alt: "Clean interior", poster: "/hero/car-3.jpg" },
+  ],
+  city = "Jaipur",
+  onVideoReady,
+}: HeroProps) {
+  const [index, setIndex] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const router = useRouter();
+
+  const current = slides[index];
+
+  const handleVideoCanPlay = () => {
+    // Video has loaded and can play
+    if (onVideoReady) {
+      onVideoReady();
+    }
+  };
+
+  return (
+    <section className="relative h-screen w-full overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        {/* next/image for perf, with object-cover */}
+        <video
+          ref={videoRef}
+          src={current.src}
+          poster={current.poster}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          onCanPlay={handleVideoCanPlay}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Dark overlay + subtle gradient from bottom */}
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" />
+      </div>
+
+      {/* Navbar offset safety if fixed header is used */}
+      <div className="pointer-events-none h-14 w-full md:h-16" />
+
+      {/* Content */}
+      <div className="relative z-10 flex h-full items-center">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl">
+            {/* Tagline */}
+            <p className="tracking-[0.35em] text-xs font-semibold text-white/80 md:text-sm">
+              DOORSTEP CAR CLEANING SERVICES
+            </p>
+
+            {/* Brand */}
+            <h1 className="mt-3 text-5xl font-extrabold leading-tight text-white md:text-7xl">
+              CleanWheels
+            </h1>
+
+            {/* City badge like screenshot */}
+            <div className="mt-4">
+              <Badge className="bg-white text-gray-900 hover:bg-white">
+                <MapPin className="mr-1 h-3.5 w-3.5" />
+                {city}
+              </Badge>
+            </div>
+
+            {/* CTA buttons */}
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Button size="lg" className="gap-2" onClick={() => router.push("/booking")}>
+                Book Now <ChevronRight className="h-4 w-4" />
+              </Button>
+              <a href="https://wa.me/919251224199" target="_blank" rel="noreferrer">
+                <Button size="lg" variant="secondary" className="gap-2">
+                  <Phone className="h-4 w-4" />
+                  Contact Us
+                </Button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right-side dots (slide indicators) */}
+      {/* <div className="absolute right-6 top-1/2 z-10 -translate-y-1/2 space-y-3">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            aria-label={`Go to slide ${i + 1}`}
+            onClick={() => setIndex(i)}
+            className={[
+              "block h-3 w-3 rounded-full border border-white/70 transition",
+              i === index ? "bg-white" : "bg-white/20 hover:bg-white/40",
+            ].join(" ")}
+          />
+        ))}
+      </div> */}
+
+      {/* Floating WhatsApp button (bottom-left) */}
+      <a
+        href="https://wa.me/919251224199"
+        target="_blank"
+        rel="noreferrer"
+        className="fixed left-4 bottom-4 z-20"
+      >
+        <Button size="icon" className="h-14 w-14 rounded-full shadow-lg bg-green-500 hover:bg-green-600 p-0" aria-label="Contact on WhatsApp">
+          <Image src="/whatsapp.png" alt="WhatsApp" width={56} height={56} className="h-full w-full" />
+        </Button>
+      </a>
+    </section>
+  );
+}
