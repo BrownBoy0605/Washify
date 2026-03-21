@@ -64,8 +64,8 @@ export default function FooterSection() {
               </div>
               <div>
                 <p className="text-xs uppercase tracking-wider text-white/70">Talk To Our Support</p>
-                <a href="tel:9982210776" className="text-xl font-bold hover:underline">
-                  9982210776
+                <a href="tel:9251224199" className="text-xl font-bold hover:underline">
+                  9251224199
                 </a>
               </div>
             </Card>
