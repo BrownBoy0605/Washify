@@ -29,6 +29,10 @@
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.23.24",
     "lucide-react": "^0.553.0",
+<<<<<<< HEAD
+=======
+    "next": "16.0.10",
+>>>>>>> ecc22fa0a9bb6b93e539a9ae084b42f7ad0c2093
     "nodemailer": "^7.0.10",
     "prisma": "^6.19.0",
     "react": "19.2.0",
