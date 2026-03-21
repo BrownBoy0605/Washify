@@ -22,19 +22,19 @@ export default function FooterSection() {
           <div className="flex items-start gap-3">
             <MapPin className="mt-0.5 h-4 w-4" />
             <div>
-              <p className="font-semibold">3 K Shivpura Kota (Raj.)</p>
-              <p className="opacity-90">near Saras Dairy Shivpura</p>
-              <p className="opacity-90">Pincode : 324010</p>
+              <p className="font-semibold">Malviya Nagar, Jaipur, Rajasthan</p>
+              <p className="opacity-90">near Saras Dairy</p>
+              <p className="opacity-90">Pincode : 302017</p>
             </div>
           </div>
 
           <div className="flex flex-col md:items-center md:justify-center">
             <div className="flex items-center gap-6">
-              <a href="tel:9982210776" className="font-semibold hover:underline">
-                9982210776
+              <a href="tel:9257801424" className="font-semibold hover:underline">
+                9257801424
               </a>
-              <a href="tel:9982210779" className="font-semibold hover:underline">
-                9982210779
+              <a href="tel:8000778398" className="font-semibold hover:underline">
+                8000778398
               </a>
             </div>
           </div>
